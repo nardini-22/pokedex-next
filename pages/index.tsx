@@ -1,10 +1,15 @@
-import { NextPage } from 'next'
-import React from 'react'
+import Body from "components/Body";
+import Header from "components/Header";
+import { NextPage } from "next";
+import React from "react";
 
 const Home: NextPage = () => {
   return (
-    <div>index</div>
-  )
-}
+    <>
+      <Header />
+      <Body />
+    </>
+  );
+};
 
 export default Home;
