@@ -1,121 +1,60 @@
 /* eslint-disable react/jsx-key */
-import axios from "axios";
+import { GetPokemonList } from "actions/pokemonActions";
+import _ from "lodash";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { IPokemonProps } from "types/pokemon";
-import { api } from "../../../pages/api/hello";
+import ReactPaginate from "react-paginate";
+import { useDispatch, useSelector } from "react-redux";
 import PokemonCards from "./pokemonCards";
 import { BodyContainer } from "./styles";
 
 const Body: NextPage = () => {
-  const [allPokemons, setAllPokemons] = useState<Array<IPokemonProps>>([]);
-  const [nextPage, setNextPage] = useState<string>(
-    "https://pokeapi.co/api/v2/pokemon?limit=20"
-  );
-  const [previousPage, setPreviousPage] = useState(
-    "https://pokeapi.co/api/v2/pokemon?limit=20"
-  );
-  const handleDelete = () => {
-    localStorage.clear();
-  };
-  const getAllPokemons = async () => {
-    if (typeof window !== "undefined") {
-      let returnData = localStorage.getItem("pokemons");
-      if (returnData) {
-        setAllPokemons(JSON.parse(returnData));
-        console.log("caiu no localStorage");
-        console.log(allPokemons)
-      } else {
-        await axios.get(nextPage).then((res) => {
-          console.log(res.data);
-          setNextPage(res.data.next);
-          setPreviousPage(res.data.previous);
-          setAllPokemons([]);
-          const createPokemons = async (result: any) => {
-            result.forEach(async (pokemon: any) => {
-              await axios
-                .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-                .then((res) => {
-                  setAllPokemons((currentList) => [...currentList, res.data]);
-                  console.log("caiu na requisição de api");
-                });
-            });
-          };
-          createPokemons(res.data.results);
-        });
-      }
-    }
-  };
-
-  const handleNextPage = async () => {
-    await axios.get(nextPage).then((res) => {
-      console.log(res.data);
-      setNextPage(res.data.next);
-      setPreviousPage(res.data.previous);
-      setAllPokemons([]);
-      const createPokemons = async (result: any) => {
-        result.forEach(async (pokemon: any) => {
-          await axios
-            .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-            .then((res) => {
-              setAllPokemons((currentList) => [...currentList, res.data]);
-              console.log("caiu na requisição de api");
-            });
-        });
-      };
-      createPokemons(res.data.results);
-    });
-  };
-  const handlePreviousPage = async () => {
-    if (typeof window !== "undefined") {
-      await axios.get(previousPage).then((res) => {
-        console.log(res.data);
-        setPreviousPage(res.data.previous);
-        setAllPokemons([]);
-        const createPokemons = async (result: any) => {
-          result.forEach(async (pokemon: any) => {
-            await axios
-              .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-              .then((res) => {
-                setAllPokemons((currentList) => [...currentList, res.data]);
-                console.log("caiu na requisição de api");
-              });
-          });
-        };
-        createPokemons(res.data.results);
-      });
-    }
-  };
-
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const pokemonList = useSelector((state) => state.PokemonList);
   useEffect(() => {
-    getAllPokemons();
+    getData();
   }, []);
+  const getData = (page = 1) => {
+    dispatch(GetPokemonList(page));
+  };
+  const showData = () => {
+    if (pokemonList.loading) {
+      return <p>loading</p>;
+    }
+    if (!_.isEmpty(pokemonList.data)) {
+      return (
+        <>
+          <div>
+            <p>Search: </p>
+            <input onChange={(el) => setSearch(el.target.value)} />
+          </div>
+          <BodyContainer>
+            {pokemonList.data.map((pokemon: any) => (
+              <PokemonCards key={pokemon.name} name={pokemon.name} />
+            ))}
+          </BodyContainer>
+        </>
+      );
+    }
 
-  useEffect(() => {
-    localStorage.setItem("pokemons", JSON.stringify(allPokemons));
-  }, [allPokemons]);
+    if (pokemonList.errorMsg !== "") {
+      return <p>{pokemonList.errorMsg}</p>;
+    }
+    return <p>ushduoashd</p>;
+  };
 
   return (
     <>
-      <button onClick={() => handleDelete()}>saasasa</button>
-      <BodyContainer>
-        {allPokemons.map((pokemon: any, index) => (
-          <PokemonCards
-            key={index}
-            id={pokemon.id}
-            name={pokemon.name}
-            image={pokemon.sprites.other.dream_world.front_default}
-            type={pokemon.types[0].type.name}
-            subtype={
-              pokemon.types[1] === undefined
-                ? null
-                : `${pokemon.types[1].type.name}`
-            }
-          />
-        ))}
-      </BodyContainer>
-      <button onClick={() => handlePreviousPage()}>Previous Page</button>
-      <button onClick={() => handleNextPage()}>Next Page</button>
+      {showData()}
+      {!_.isEmpty(pokemonList.data) && (
+        <ReactPaginate
+          pageCount={Math.ceil(pokemonList.count / 20)}
+          pageRangeDisplayed={1}
+          marginPagesDisplayed={2}
+          onPageChange={(data) => getData(data.selected + 1)}
+        />
+      )}
     </>
   );
 };
