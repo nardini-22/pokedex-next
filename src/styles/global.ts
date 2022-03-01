@@ -1,8 +1,11 @@
+import { darken, lighten } from "polished";
 import { createGlobalStyle } from "styled-components";
 
 export const theme = {
   main: {
     primary: "#E83E34",
+    primaryLight: lighten(0.1, "#E83E34"),
+    primaryDark: darken(0.1, "#E83E34"),
     primaryText: "#000",
     secondaryText: "#fff",
   },
