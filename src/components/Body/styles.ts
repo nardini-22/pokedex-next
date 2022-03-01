@@ -131,6 +131,9 @@ export const StatsContainer = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 0 0.625rem 0 0.625rem;
+  @media screen and (max-width: 767px) {
+    padding: 0.625rem 0 0.625rem 0;
+  }
 `;
 
 export const ImageContainer = styled(CardContainer)`
@@ -149,6 +152,9 @@ export const ProgressBar = styled.div<IProgressBarProps>`
 
 export const BioContainer = styled.div`
   padding: 0 0.625rem 0 0.625rem;
+  @media screen and (max-width: 767px) {
+    padding: 0.625rem 0 0.625rem 0;
+  }
 `;
 
 export const PokemonDetailsBody = styled.div`
@@ -180,7 +186,7 @@ export const Pagination = styled(ReactPaginate)`
 export const Details = styled.span`
   display: flex;
   font-weight: normal;
-  & p{
+  & p {
     font-weight: bold;
     margin: 0 0.0625rem 0 0;
   }
