@@ -5,7 +5,7 @@ import { NextPage } from "next";
 import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import PokemonCards from "./pokemonCards";
-import { BodyContainer, Pagination } from "./styles";
+import { BodyContainer, Pagination, PaginationContainer } from "./styles";
 
 const Body: NextPage = () => {
   const dispatch = useDispatch();
@@ -42,12 +42,21 @@ const Body: NextPage = () => {
     <>
       {showData()}
       {!_.isEmpty(pokemonList.data) && (
-        <Pagination
-          pageCount={Math.ceil(pokemonList.count / 20)}
-          pageRangeDisplayed={1}
-          marginPagesDisplayed={2}
-          onPageChange={(data) => getData(data.selected + 1)}
-        />
+        <PaginationContainer>
+          <Pagination
+          nextLabel="Next >"
+          previousLabel="< Previous"
+            previousClassName="previous-page"
+            nextClassName="next-page"
+            disabledClassName="disabled-page"
+            activeClassName="active-page"
+            className="pagination"
+            pageCount={Math.ceil(pokemonList.count / 20)}
+            pageRangeDisplayed={1}
+            marginPagesDisplayed={2}
+            onPageChange={(data) => getData(data.selected + 1)}
+          />
+        </PaginationContainer>
       )}
     </>
   );

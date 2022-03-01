@@ -107,17 +107,11 @@ export const BodyContainer = styled.div`
 export const ProgressBarWrapper = styled.div`
   background: #e7e9eb;
   width: 70%;
-  @media screen and (max-width: 767px) {
-    width: 50%;
-  }
 `;
 
 export const ProgressBarText = styled.p`
   width: 30%;
   font-weight: bold;
-  @media screen and (max-width: 767px) {
-    width: 50%;
-  }
 `;
 
 export const ProgressBarContainer = styled.div`
@@ -175,12 +169,36 @@ export const DetailsContainer = styled.div`
 `;
 
 export const Pagination = styled(ReactPaginate)`
-  display: flex;
-  width: 50vw;
-  justify-content: space-between;
-  list-style: none;
-  margin: auto;
-  padding: 0;
+  &.pagination {
+    display: flex;
+    width: 50vw;
+    justify-content: space-between;
+    list-style: none;
+    margin: auto;
+    padding: 0;
+    & li {
+      cursor: pointer;
+    }
+    & .active-page {
+      font-weight: bold;
+    }
+    & .disabled-page {
+      cursor: default !important;
+      font-weight: normal !important;
+    }
+    & .previous-page,
+    .next-page {
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+`;
+
+export const PaginationContainer = styled.div`
+  background: ${(props) => props.theme.main.primary};
+  width: 100vw;
+  padding: 0.6125rem;
+  color: ${(props) => props.theme.main.secondaryText};
 `;
 
 export const Details = styled.span`
