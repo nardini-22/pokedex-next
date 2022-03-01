@@ -172,15 +172,33 @@ export const Pagination = styled(ReactPaginate)`
   &.pagination {
     display: flex;
     width: 50vw;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
     justify-content: space-between;
     list-style: none;
     margin: auto;
     padding: 0;
-    & li {
+    & a {
       cursor: pointer;
+      padding: 0.3125rem;
+      border-radius: 100px;
+      &:hover {
+        background: ${(props) => props.theme.main.primaryLight};
+      }
+      &:active {
+        background: ${(props) => props.theme.main.primaryDark};
+      }
     }
     & .active-page {
       font-weight: bold;
+      cursor: default;
+      &:hover {
+        background: ${(props) => props.theme.main.primary};
+      }
+      &:active {
+        background: ${(props) => props.theme.main.primary};
+      }
     }
     & .disabled-page {
       cursor: default !important;
