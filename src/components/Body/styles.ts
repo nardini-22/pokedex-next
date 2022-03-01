@@ -1,3 +1,4 @@
+import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import { IContainerProps, IProgressBarProps } from "types/pokemon";
 
@@ -113,6 +114,7 @@ export const ProgressBarWrapper = styled.div`
 
 export const ProgressBarText = styled.p`
   width: 30%;
+  font-weight: bold;
   @media screen and (max-width: 767px) {
     width: 50%;
   }
@@ -121,13 +123,14 @@ export const ProgressBarText = styled.p`
 export const ProgressBarContainer = styled.div`
   display: flex;
   width: 100%;
-  padding: 0.3125rem;
+  padding: 0.3125rem 0 0.3125rem 0;
 `;
 
 export const StatsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 0 0.625rem 0 0.625rem;
 `;
 
 export const ImageContainer = styled(CardContainer)`
@@ -144,7 +147,9 @@ export const ProgressBar = styled.div<IProgressBarProps>`
   color: ${(props) => props.theme.main.secondaryText};
 `;
 
-export const BioContainer = styled.div``;
+export const BioContainer = styled.div`
+  padding: 0 0.625rem 0 0.625rem;
+`;
 
 export const PokemonDetailsBody = styled.div`
   background: ${(props) => props.theme.main.secondaryText};
@@ -160,5 +165,26 @@ export const DetailsContainer = styled.div`
   width: 50%;
   @media screen and (max-width: 767px) {
     width: 100%;
+  }
+`;
+
+export const Pagination = styled(ReactPaginate)`
+  display: flex;
+  width: 50vw;
+  justify-content: space-between;
+  list-style: none;
+  margin: auto;
+  padding: 0;
+`;
+
+export const Details = styled.span`
+  display: flex;
+  font-weight: normal;
+  & p{
+    font-weight: bold;
+    margin: 0 0.0625rem 0 0;
+  }
+  & li {
+    list-style: none;
   }
 `;

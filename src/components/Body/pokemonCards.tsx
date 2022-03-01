@@ -6,7 +6,7 @@ import Portal from "HOC/portal";
 import _ from "lodash";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import PokemonDetails from "./pokemonDetails";
 import {
   CardContainer,
@@ -20,20 +20,16 @@ import {
 const PokemonCards = (name: any) => {
   const pokemonName = name.name;
   const dispatch = useDispatch();
-  const pokemonState = useSelector((state) => state.Pokemon);
+  const pokemonState = useSelector((state: RootStateOrAny) => state.Pokemon);
   useEffect(() => {
     dispatch(GetPokemon(pokemonName));
   }, []);
   const capitalize = (string: string) => {
-    if (string !== null) {
-      if (string.indexOf("-") > 0) {
-        const newString = string.replace(/-/g, " ");
-        return newString.charAt(0).toUpperCase() + newString.slice(1);
-      } else {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
+    if (string.indexOf("-") > 0) {
+      const newString = string.replace(/-/g, " ");
+      return newString.charAt(0).toUpperCase() + newString.slice(1);
     } else {
-      return null;
+      return string.charAt(0).toUpperCase() + string.slice(1);
     }
   };
   const [open, setOpen] = useState<boolean>();
@@ -49,9 +45,6 @@ const PokemonCards = (name: any) => {
           : `#${pokemonData.id}`;
       return (
         <>
-          <button onClick={() => console.log(pokemonData.abilities[1])}>
-            hhfdtd
-          </button>
           <CardContainer type={pokemonData.types[0].type.name}>
             <InfoButton onClick={() => setOpen(true)}>
               <InfoIcon width={25} height={25} />
@@ -67,7 +60,6 @@ const PokemonCards = (name: any) => {
                 alt={pokemonData.name}
               />
             ) : null}
-
             <div>
               <PokemonName>{capitalize(pokemonName)}</PokemonName>
               <TypesContainer>

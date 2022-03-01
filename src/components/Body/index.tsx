@@ -3,15 +3,13 @@ import { GetPokemonList } from "actions/pokemonActions";
 import _ from "lodash";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import PokemonCards from "./pokemonCards";
-import { BodyContainer } from "./styles";
+import { BodyContainer, Pagination } from "./styles";
 
 const Body: NextPage = () => {
-  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
-  const pokemonList = useSelector((state) => state.PokemonList);
+  const pokemonList = useSelector((state: RootStateOrAny) => state.PokemonList);
   useEffect(() => {
     getData();
   }, []);
@@ -25,10 +23,6 @@ const Body: NextPage = () => {
     if (!_.isEmpty(pokemonList.data)) {
       return (
         <>
-          <div>
-            <p>Search: </p>
-            <input onChange={(el) => setSearch(el.target.value)} />
-          </div>
           <BodyContainer>
             {pokemonList.data.map((pokemon: any) => (
               <PokemonCards key={pokemon.name} name={pokemon.name} />
@@ -41,14 +35,14 @@ const Body: NextPage = () => {
     if (pokemonList.errorMsg !== "") {
       return <p>{pokemonList.errorMsg}</p>;
     }
-    return <p>ushduoashd</p>;
+    return null;
   };
 
   return (
     <>
       {showData()}
       {!_.isEmpty(pokemonList.data) && (
-        <ReactPaginate
+        <Pagination
           pageCount={Math.ceil(pokemonList.count / 20)}
           pageRangeDisplayed={1}
           marginPagesDisplayed={2}

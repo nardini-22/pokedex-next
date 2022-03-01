@@ -5,6 +5,7 @@ import React from "react";
 import { IPokemonProps } from "types/pokemon";
 import {
   BioContainer,
+  Details,
   DetailsContainer,
   ImageContainer,
   PokemonDetailsBody,
@@ -88,14 +89,20 @@ const PokemonDetails: NextPage<IPokemonProps> = ({
         </ImageContainer>
         <DetailsContainer>
           <BioContainer>
-            <p>Height: {(height / 10).toFixed(1)}m</p>
-            <p>Weight: {(weight / 10).toFixed(1)}kg</p>
-            <p>Abilities: </p>
-            <ul>
-              <li>{capitalize(ability_1)}</li>
-              <li>{capitalize(ability_2)}</li>
-              <li>{capitalize(ability_3)}</li>
-            </ul>
+            <Details>
+              <p>Height:</p> {(height / 10).toFixed(1)}m
+            </Details>
+            <Details>
+              <p>Weight:</p> {(weight / 10).toFixed(1)}m
+            </Details>
+            <Details>
+              <p>Abilities: </p>
+              <ul>
+                <li>{capitalize(ability_1)}</li>
+                <li>{capitalize(ability_2)}</li>
+                <li>{capitalize(ability_3)}</li>
+              </ul>
+            </Details>
           </BioContainer>
           <StatsContainer>
             {statsArray.map((stats, index) => (
