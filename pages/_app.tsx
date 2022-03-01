@@ -1,7 +1,19 @@
+/* eslint-disable react/jsx-key */
 import type { AppProps } from "next/app";
+import { Provider } from "react-redux";
+import Store from "store";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles, theme } from "styles/global";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  return (
+    <Provider store={Store}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </Provider>
+  );
+};
 
 export default MyApp;
