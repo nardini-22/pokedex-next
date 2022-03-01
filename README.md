@@ -1,6 +1,6 @@
 # :construction_worker_man: O Projeto
 
-Esse é um projeto com o intuito de suprir as exigencias impostas no desafio da Binds.co. O desafio era fazer uma pokedex utilizando a api <a href="https://pokeapi.co/">PokeAPI</a>. Utilizei NextJS para a construção desse projeto, um framework do React que apresenta muito mais vantagens, utilizei Typescript para facilitar meu ambiente de trabalho, Axios para as requisições da API, Redux e React Redux para a manutenção de estado, Styled-Components para os estilos, React-Paginate para a paginação e, por fim, Vercel para fazer o deploy da aplicação.
+Esse é um projeto com o intuito de suprir as exigencias impostas no desafio da Binds.co. O desafio era fazer uma pokedex utilizando a api <a href="https://pokeapi.co/">PokeAPI</a>. Utilizei NextJS para a construção desse projeto, um framework do React que apresenta muito mais vantagens, utilizei Typescript para facilitar meu ambiente de trabalho, Axios para as requisições da API, Redux e React Redux para a manutenção de estado, Styled-Components para os estilos, React-Paginate para a paginação e, por fim, Vercel para fazer o deploy da aplicação. O projeto é um PWA (Progressive Web App) ou seja, ele pode ser visualizado tanto em Mobile quanto em Desktop, sem perder nenhum detalhe ou qualidade.
 
 # :selfie: Funcionalidades gerais
 
