@@ -2,7 +2,7 @@
 import { GetPokemonList } from "actions/pokemonActions";
 import _ from "lodash";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import PokemonCards from "./pokemonCards";
 import { BodyContainer, Pagination } from "./styles";
